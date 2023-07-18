@@ -22,22 +22,24 @@ pygame.display.set_caption('Detris')
 GAMESPACE = pygame.Rect((left,top,right-left,bottom-top))
 FONT = pygame.font.Font(pygame.font.get_default_font(), 36)
 
-block = pygame.Rect((x, y, l, l))
+block = [5,2]
 gbdata = [ [0]*10 for i in range(20)]
 
 run = True
 while run:
     CLOCK.tick(tickrate)
     SCREEN.fill((204, 204, 204))
-    
+
     tick+=1
     if tick == tickrate/2:
-        if block.y<bottom-l: block.y+=l
+        if block[0]<19: block[0]+=1
         tick = 0
+
+    updateBlock(gbdata, block)
         
     pygame.draw.rect(SCREEN, (0,0,0), GAMESPACE, 1)
     drawStaticBoard(gbdata, SCREEN, l)
-    pygame.draw.rect(SCREEN, (0, 50, 100), block)
+    
     text_surface = FONT.render('X:'+str(x)+" Y:"+str(y)+" FPS:"+str(round(CLOCK.get_fps())), True, (0, 0, 0))
 
     for event in pygame.event.get():
